@@ -1,5 +1,17 @@
 import tkinter as tk
 
+def factorial(n):
+    if n < 1:
+        return 1
+    else: 
+        q = n
+        for i in range(1,n):
+            q *= i 
+        return q 
+
+def oneterm(y,p):
+    return y**p/factorial(p)
+
 def drawWindow(x, color):
     root =  tk.Tk()
 
@@ -26,7 +38,7 @@ def oneButtonWindow(title, color, buttonText, windowWidth, windowHeight):
     button.pack(side=tk.LEFT)
     root.mainloop()
 
-def TwoButtonWindow(msg1, clr1, msg2, clr2, title, buttonWid):
+def TwoButtonWindow(msg1, clr1, msg2, clr2, title):
     root = tk.Tk()
     root.title(title)
 
