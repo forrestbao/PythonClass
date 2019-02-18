@@ -8,3 +8,7 @@ Python class COM S 127 at Iowa State University
 
 # Last-year slides
 On this old page https://sites.google.com/site/forrestbao/teaching/python
+
+
+# Disclaimer
+Opinions expressed here does not reflect the opinions of Iowa State University. 
