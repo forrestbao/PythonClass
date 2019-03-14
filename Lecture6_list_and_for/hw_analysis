@@ -32,5 +32,129 @@ a	counter		a>5
 7	2			True
 
 
+print ( [5,8,3,2][3] )
+
+
+i   i>3     i<-3    else    a 
+3   False   False   True    0
+
+
+i   X[i]    Y[i]    X[i]>Y[i]   a
+0   1       2       False       10
+1   6       6       False       10
+2   2       3       False       10
+3   6       5       True        11
+4   3       2       True        12 
+
+x=10
+a=[]
+i   x%i==0  a
+1   True    [1]
+2   True    [1,2]
+3   False   [1,2]
+
+10  True    [1,2,5,10]
+
+a=[]
+i   i%x==0  a
+10  True    [10]
+16  False   [10]
+15  True    [10,15]
+...
+
+
+y=0
+p       q   y
+[1,2]   1   1
+[1,2]   2   3
+[3,4]   3   6
+[3,4]   4   10 
+
+a   a>5     counter
+1   F       0
+7   T       1
+...
+
+Temp: largest up to the scanning point 
+Temp = -10000000000000000000000
+i   (new_)temp    i>(new_)temp  new_temp
+5           ...   T             5
+5.5     5           T           5.5
+3       5.5         False       5.5
+...
+
+MadMax(L):
+    temp = -1000000000000
+    for i in L:
+        if i > temp:
+            temp = i 
+    return temp
+
+
+
+let L be an empty list
+for each spot on the street:
+    if the value at the spot is 1
+        append the avenue number of the spot into L
+        
+return L 
+
+def oneDP(P):
+    L = []
+    for i  in range(len(P)):
+        if P[i] == 1:
+            L.append(i+1)
+            
+    return L 
+    
+    
+Problem 6
+
+Find the smaller number y, from given a and b
+Countdown from the smaller number y to 1 :
+    Let's call the number being scanned x 
+    if x can evenly divide a and b:
+        return x 
+
+def gcd(a,b):
+    if a > b:
+        y = b
+    else:
+        y = a
+        
+    for x in range(y, 0, -1):
+        if a % x == 0 and b % x == 0: 
+            return x 
+
+Problem 8
+Lazy way:
+
+convert the number to the corresponding string
+multiply the string with the number 
+print 
+
+For-loop way:
+Lets call this argument x
+For a count-up from 1 to x:
+    print (x + " ") but do not break the line 
+    
+    
+Problem 9 :
+lets call the arguemnt x
+For a count-up from 1 to x, denote the number under scanning i :
+    PrintMe(i )
+
+
+
+
+
+
+
+
+
+
+
+1
+
 
 
