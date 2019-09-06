@@ -1,5 +1,5 @@
 # PythonClass
-Python class COM S 127 at Iowa State University
+Python class COM S 127 at Iowa State University taught by Prof. Dr. Forrest Sheng Bao and pals. 
 
 
 # Slides and notebooks
