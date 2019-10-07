@@ -8,5 +8,6 @@ do
 echo -n "grading ... "
 echo -n $i 
 echo -n "   "
-python3 $i
+python3  $i #2> /dev/null
+echo " " 
 done

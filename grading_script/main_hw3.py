@@ -1,27 +1,36 @@
+
+
+
+
+
 def grade_one_problem(your_function, my_function, data):
     try :
-        your_result = list(map(your_function, data))
+        your_result = list(itertools.starmap(your_function, data))
     except:
         return False
 
-    my_result = list(map(my_function, data))
+    my_result = list(itertools.starmap(my_function, data))
     if len(my_result) != 0 and len(your_result)!= 0:
       return your_result == my_result 
     else:
       return False 
 
 
-def grade_all_problems(your_functions, my_functions, datas, points, counter=0):
+def grade_all_problems(your_functions, my_functions, datas, points, counter=0, verbose=False):
     grade = 0 
-    print ("correct problems: ", end="")
+    correct = []
+    if verbose:
+      print ("correct problems: ", end="")
     for (yf, mf, data, pt) in zip(your_functions, my_functions, datas, points):
       if grade_one_problem(yf, mf, data):
+        if verbose:
           print (counter, end=", ")
-          grade += pt
+        correct.append(counter)
+        grade += pt
       counter  += 1 
-
-    print (". Grade is", grade)
-    return grade 
+    if verbose:
+      print (". Grade is", grade)
+    return correct, grade 
 
 if __name__ == "__main__":
 
@@ -39,7 +48,7 @@ if __name__ == "__main__":
     import itertools
     import lib_hw3
 
-    map = itertools.starmap
+    # map = itertools.starmap
 
     # test data for problems 2-5
     tax_data = random.choices(range(1, 2000, 10), k=10) + [0, 49,50,51,99,100,101,499,499-50,501, 149,150,151,999,999-50, 999+50, 1000, 1000-50,1000+50, 1001-50, 1001+50, 1001]
@@ -67,6 +76,15 @@ if __name__ == "__main__":
     my_functions = [lib_hw3.tax, lib_hw3.tax2, lib_hw3.tax3, lib_hw3.median, \
                    lib_hw3.caesar_encoder, lib_hw3.caesar_decoder, lib_hw3.solve_eq]
     datas = [tax_data, tax_data, tax_data, median_data, caesar_data, caesar_data, eq_data]
-    points = [5,6,7,8,9,10,11]
+    points = [5,5,5,5, 5, 5,10]
 
-    x= grade_all_problems(your_functions, my_functions, datas, points, counter=3)
+    correct, grade = grade_all_problems(your_functions, my_functions, datas, points, counter=3)
+    # print (correct, grade)
+    with open("grades.log", 'a+') as f:
+      f.write(__file__)
+      f.write("\t")
+      x = " ".join(map(str,correct))
+      f.write(",".join(map(str,correct)))
+      f.write("\t ")
+      f.write(str(grade))
+      f.write("\n")

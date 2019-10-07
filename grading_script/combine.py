@@ -67,19 +67,22 @@ def remove_comments_and_docstrings(source):
     return out
 
 def reject(line):
-    badwords = ["import"]
+    badwords = ["import"] #"input(", "print"]
     for badword in badwords:
         if badword in line:
             return True 
     return False 
 
 def combine_one(code, main_body):
+    # To do : Use import 
+     
     with open(code, 'r') as f:
         lib = f.readlines()
 
-    lib = eval(remove_comments_and_docstrings(lib))
+    # lib = eval(remove_comments_and_docstrings(lib))
 
     newlines = [line for line in lib if not reject(line)]
+    code = "".join(code.split())
     with open(code + ".cool", 'w') as f:
         f.writelines(newlines)
         f.write(main_body)
