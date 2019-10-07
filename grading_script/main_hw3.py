@@ -6,7 +6,8 @@
 def grade_one_problem(your_function, my_function, data):
     try :
         your_result = list(itertools.starmap(your_function, data))
-    except:
+    except Exception as e:
+        print (e)
         return False
 
     my_result = list(itertools.starmap(my_function, data))
@@ -22,6 +23,7 @@ def grade_all_problems(your_functions, my_functions, datas, points, counter=0, v
     if verbose:
       print ("correct problems: ", end="")
     for (yf, mf, data, pt) in zip(your_functions, my_functions, datas, points):
+      print (yf.__name__, end=", ")
       if grade_one_problem(yf, mf, data):
         if verbose:
           print (counter, end=", ")
@@ -78,8 +80,10 @@ if __name__ == "__main__":
     datas = [tax_data, tax_data, tax_data, median_data, caesar_data, caesar_data, eq_data]
     points = [5,5,5,5, 5, 5,10]
 
+    print (__file__)
     correct, grade = grade_all_problems(your_functions, my_functions, datas, points, counter=3)
     # print (correct, grade)
+    
     with open("grades.log", 'a+') as f:
       f.write(__file__)
       f.write("\t")

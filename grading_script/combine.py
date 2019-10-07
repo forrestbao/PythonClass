@@ -1,97 +1,93 @@
 # runs for Python 2 because Python3 has no StringIO 
 
 import glob
-import StringIO, tokenize
+# import StringIO, tokenize
+import os, re
 
-with open("main_hw3.py", "r")  as f:
-    main_body = f.read()
 
-def remove_comments_and_docstrings(source):
-    """
-    Returns 'source' minus comments and docstrings.
 
-    this function is taken from 
-    https://stackoverflow.com/questions/1769332/script-to-remove-python-comments-docstrings
-
-    """
-    io_obj = StringIO.StringIO(source)
-    out = ""
-    prev_toktype = tokenize.INDENT
-    last_lineno = -1
-    last_col = 0
-    for tok in tokenize.generate_tokens(io_obj.readline):
-        token_type = tok[0]
-        token_string = tok[1]
-        start_line, start_col = tok[2]
-        end_line, end_col = tok[3]
-        ltext = tok[4]
-        # The following two conditionals preserve indentation.
-        # This is necessary because we're not using tokenize.untokenize()
-        # (because it spits out code with copious amounts of oddly-placed
-        # whitespace).
-        if start_line > last_lineno:
-            last_col = 0
-        if start_col > last_col:
-            out += (" " * (start_col - last_col))
-        # Remove comments:
-        if token_type == tokenize.COMMENT:
-            pass
-        # This series of conditionals removes docstrings:
-        elif token_type == tokenize.STRING:
-            if prev_toktype != tokenize.INDENT:
-        # This is likely a docstring; double-check we're not inside an operator:
-                if prev_toktype != tokenize.NEWLINE:
-                    # Note regarding NEWLINE vs NL: The tokenize module
-                    # differentiates between newlines that start a new statement
-                    # and newlines inside of operators such as parens, brackes,
-                    # and curly braces.  Newlines inside of operators are
-                    # NEWLINE and newlines that start new code are NL.
-                    # Catch whole-module docstrings:
-                    if start_col > 0:
-                        # Unlabelled indentation means we're inside an operator
-                        out += token_string
-                    # Note regarding the INDENT token: The tokenize module does
-                    # not label indentation inside of an operator (parens,
-                    # brackets, and curly braces) as actual indentation.
-                    # For example:
-                    # def foo():
-                    #     "The spaces before this docstring are tokenize.INDENT"
-                    #     test = [
-                    #         "The spaces before this string do not get a token"
-                    #     ]
-        else:
-            out += token_string
-        prev_toktype = token_type
-        last_col = end_col
-        last_lineno = end_line
-    return out
 
 def reject(line):
     badwords = ["import"] #"input(", "print"]
     for badword in badwords:
         if badword in line:
             return True 
+    patterns = [".*print.*\(.*\).*"]
+    for pattern in patterns:
+        x = re.search(pattern, line)
+        if x != None:
+            return True 
     return False 
 
-def combine_one(code, main_body):
-    # To do : Use import 
-     
-    with open(code, 'r') as f:
+def tweak_name(filename):
+    filename = "".join(filename.split())
+    filename = os.path.basename(filename)
+    filename = filename[:-3] + "_grade.py" 
+    return filename
+
+def gen_header(filename):
+    # filenmname: Some_body_hw3.py 
+    filename = "".join(filename.split())    
+    filename = os.path.basename(filename)
+    headers = ""
+    headers += "msg=\"123\"\n"
+    for func in ["tax", "tax2", "tax3", "median", "caesar_encoder", "caesar_decoder", "solve_eq"]:
+        header = "try:\n"
+        header += "  from " + filename[:-3] + " import " + func + "\n"
+        header += "except:\n"
+        header += "  def {}(*args):\n".format(func)
+        header += "    return None \n"
+        # print (header)
+        headers += header
+    return headers
+
+def gen_executable(student_library_filename, dstprefix, mainbody):
+    headers = gen_header(student_library_filename)
+    run_code_name = tweak_name(student_library_filename)
+    run_code_path = os.path.join(dstprefix, run_code_name) 
+    print "generating", run_code_path
+    with open(run_code_path, 'w') as f:
+        f.write(headers)
+        f.write(mainbody)
+    return run_code_path
+
+def rewritefile(filename, dstprefix):  
+    # rewrite student submitted script 
+    with open(filename, 'r') as f:
         lib = f.readlines()
 
-    # lib = eval(remove_comments_and_docstrings(lib))
+    newlines = [line  if not reject(line) else "\n" for line in lib]
+    
+    filename = "".join(filename.split())
+    # if "-" in filename:
+    #     print filename
+    filename = filename.replace("-", "_")
+    filename = filename.replace("..", "_.")
+    filename = os.path.basename(filename)
+    
+    (_, filename) = os.path.split(filename)
 
-    newlines = [line for line in lib if not reject(line)]
-    code = "".join(code.split())
-    with open(code + ".cool", 'w') as f:
+    filename  = os.path.join(dstprefix, filename)
+    # print filename
+
+    with open(filename, 'w') as f:
         f.writelines(newlines)
-        f.write(main_body)
-    return None 
+    return filename  
 
 
-import sys, token, tokenize
-for code in glob.glob("hw3s/*3.py"):
-    try:
-        combine_one(code, main_body)
-    except:
-        print (code, "throw out. manual check ")
+# gen_header("dafdsaf/sdafdsf.py")
+# tweak_name("dafdsaf/sdafdsf.py")
+
+
+processed_student_script_prefix = "hw3_students"
+with open("main_hw3.py", "r")  as f:
+    main_body = f.read()
+
+import sys
+counter = 0 
+for code in glob.glob("hw3s/*.py"):
+    # try:
+        student_library_filename = rewritefile(code, processed_student_script_prefix)
+        gen_executable(student_library_filename, processed_student_script_prefix, main_body)
+    # except:
+    #     print (code, "throw out. manual check ")
