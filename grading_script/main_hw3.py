@@ -1,3 +1,15 @@
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version. 
+# This program is distributed in the hope that it will be useful, 
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+# See the GNU General Public License for more details. 
+# You should have received a copy of the GNU General Public License 
+# along with this program. If not, see http://www.gnu.org/licenses/.
+
+# Copyleft 2019 Forrest Sheng Bao, Iowa State University 
 
 
 
@@ -53,7 +65,7 @@ if __name__ == "__main__":
     # map = itertools.starmap
 
     # test data for problems 2-5
-    tax_data = random.choices(range(1, 2000, 10), k=10) + [0, 49,50,51,99,100,101,499,499-50,501, 149,150,151,999,999-50, 999+50, 1000, 1000-50,1000+50, 1001-50, 1001+50, 1001]
+    tax_data = random.choices(range(1, 2000, 10), k=10) # + [0, 49,50,51,99,100,101,499,499-50,501, 149,150,151,999,999-50, 999+50, 1000, 1000-50,1000+50, 1001-50, 1001+50, 1001]
     tax_data =  list(zip(tax_data)) 
     
     # test data for problem 6
@@ -80,7 +92,7 @@ if __name__ == "__main__":
     datas = [tax_data, tax_data, tax_data, median_data, caesar_data, caesar_data, eq_data]
     points = [5,5,5,5, 5, 5,10]
 
-    print (__file__)
+    print (__file__, end=" ")
     correct, grade = grade_all_problems(your_functions, my_functions, datas, points, counter=3)
     # print (correct, grade)
     
