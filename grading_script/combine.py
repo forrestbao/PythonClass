@@ -17,9 +17,6 @@ import glob
 # import StringIO, tokenize
 import os, re
 
-
-
-
 def reject(line):
     badwords = ["import"] #"input(", "print"]
     for badword in badwords:
@@ -47,7 +44,8 @@ def gen_header(filename):
     for func in ["tax", "tax2", "tax3", "median", "caesar_encoder", "caesar_decoder", "solve_eq"]:
         header = "try:\n"
         header += "  from " + filename[:-3] + " import " + func + "\n"
-        header += "except:\n"
+        header += "except Exception as e:\n"
+        header += "  print (e)\n"
         header += "  def {}(*args):\n".format(func)
         header += "    return None \n"
         # print (header)
@@ -92,13 +90,16 @@ def rewritefile(filename, dstprefix):
 # tweak_name("dafdsaf/sdafdsf.py")
 
 
-processed_student_script_prefix = "hw3_students"
+raw_submission_prefix = "hw3_submissions" # Places downloaded submissions, a bunch of .py files, here. 
+processed_student_script_prefix = "hw3_students" 
+
+
 with open("main_hw3.py", "r")  as f:
     main_body = f.read()
 
 import sys
 counter = 0 
-for code in glob.glob("hw3s/*.py"):
+for code in glob.glob(raw_submission_prefix + "/*.py"):
     # try:
         student_library_filename = rewritefile(code, processed_student_script_prefix)
         gen_executable(student_library_filename, processed_student_script_prefix, main_body)
