@@ -91,6 +91,7 @@ if __name__ == "__main__":
                    lib_hw3.caesar_encoder, lib_hw3.caesar_decoder, lib_hw3.solve_eq]
     datas = [tax_data, tax_data, tax_data, median_data, caesar_data, caesar_data, eq_data]
     points = [5,5,5,5, 5, 5,10]
+    points = [p*40/58 for p in points]
 
     print (__file__, end=" ")
     correct, grade = grade_all_problems(your_functions, my_functions, datas, points, counter=3)
