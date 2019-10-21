@@ -1,0 +1,96 @@
+#5 
+belongto(L, x)
+1. on what sequence you wanna iterate 
+L 
+2. how to call the element drawn from #1 in each iteration? 
+i
+3. what to repeat? 
+if i == x :
+    return True 
+4. anything to do before the loop 
+5. anything to do post-loop
+return false 
+
+
+#7 
+printMe(n)  n --> "n n ...n " by n times 
+1. on what sequence you wanna iterate 
+range(n-1)
+2. how to call the element drawn from #1 in each iteration? 
+i
+3. what to repeat? 
+
+x = x + str(n) + " " 
+
+4. anything to do before the loop 
+x=""
+5. anything to do post-loop
+x = x + str(n) 
+return x
+
+#8 triangle(n)
+
+1. on what sequence you wanna iterate 
+range(n) 
+2. how to call the element drawn from #1 in each iteration? 
+i
+3. what to repeat? 
+
+x = x.append(PrintMe(i) ) 
+x = x + [PrintMe(i)] 
+
+4. anything to do before the loop 
+x=[]
+5. anything to do post-loop
+return x 
+
+#9 typewriter(x)
+1. on what sequence you wanna iterate 
+L 
+2. how to call the element drawn from #1 in each iteration? 
+i which is a letter
+3. what to repeat? 
+
+incrlttr = incrlttr + i
+incrlist.append(incrlttr)
+
+4. anything to do before the loop 
+incrlist = []
+incrlttr = ""
+5. anything to do post-loop
+return incrlist 
+
+#11
+reverse(x) , 10
+1. on what sequence you wanna iterate 
+range(len(x))
+
+ 
+2. how to call the element drawn from #1 in each iteration? 
+i
+3. what to repeat? 
+
+y = y + x[len(x)-i-1]
+
+4. anything to do before the loop 
+y = ""
+5. anything to do post-loop
+return y 
+
+                              ""
+i   len(x)-i    x[len(x)-i]   y
+0   4           "y"           "y"
+1   3           "p"           "yp"
+2   2           "p"           "ypp"
+3   1           "a"           "yppa"
+4   0           "h"           "yppah"
+
+
+# 12
+
+1. df = |t-i|
+2. if df < |x-t|
+        x = i 
+        3. 
+        
+
