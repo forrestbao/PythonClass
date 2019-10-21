@@ -77,8 +77,10 @@ y = ""
 5. anything to do post-loop
 return y 
 
+len(x) == 5 
+
                               ""
-i   len(x)-i    x[len(x)-i]   y
+i   len(x)-i-1    x[len(x)-i-1]   y
 0   4           "y"           "y"
 1   3           "p"           "yp"
 2   2           "p"           "ypp"
