@@ -4,12 +4,12 @@ Author: Forrest Sheng Bao, Computer Science, Iowa State University, Ames, IA, US
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 
-## 1. Factorials
+## 1. Factorials [1pt]
 Define a function `FactorialCy` that takes a number `x` as the input and returns the factorial of `x`. For example, `FactorialCy(4)` returns 24 (4x3x2x1). 
 
 Hint: Initialize a temporary holder as `t=1`. Use one for-loop that iterates `i` from `x` to 1 (`range(x, 0, -1)`), in each iteration of which multiple `i` onto `t`. In the end, return `t`. 
 
-## 2. MacLaurin series of exponentials
+## 2. MacLaurin series of exponentials [2pts]
 Recall that in Lab 1 we manually entered an expression to calculate MacLaurin series for exponential to a finite number of terms. Now let's do it to a very high precision. 
 
 Define a function `MyExp`, that takes a number (integer or floating-point) `x` and an integer `p` as inputs and returns exp(x) calculated with up to `p` non-constant terms. For example, `MyExp(2, 3)` returns the value of the expression `1 + 2 + 2^2/2! + 2^3/3!` while `MyExp(3,4)` shall return the value of this expression `1 + 3 + 3^2/2! + 3^3/3! + 3^4/4!`. You may call the `FactorialCy` function defined above. 
@@ -21,7 +21,7 @@ Compute the exponentials of a few numbers you pick in `MyExp` with different `p`
 
 Wikipedia has a visualization on the approximation getting more accurate with more terms: (https://en.wikipedia.org/wiki/Taylor_series#/media/File:Exp_series.gif)
 
-## 3. Diff 
+## 3. Diff [2 pts]
 
 Difference (short as diff) is an operation commonly performed in scientific computing, and thus is provided in many libraries:  
 
