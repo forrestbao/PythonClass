@@ -22,7 +22,15 @@ def reject(line):
     for badword in badwords:
         if badword in line:
             return True 
-    patterns = [".*print.*\(.*\).*"]
+    patterns = [".*print.*\(.*\).*", 
+            ".*\..*sort.*\(.*", 
+            ".*\..*remove.*\(.*", 
+            ".*\..*pop.*\(.*",
+            ".*\..*index.*\(.*", 
+#            ".*:.*:.*-.*1.*",
+#           "if.*in.*",
+
+            ]
     for pattern in patterns:
         x = re.search(pattern, line)
         if x != None:
@@ -40,8 +48,8 @@ def gen_header(filename):
     filename = "".join(filename.split())    
     filename = os.path.basename(filename)
     headers = ""
-    headers += "msg=\"123\"\n"
-    for func in ["tax", "tax2", "tax3", "median", "caesar_encoder", "caesar_decoder", "solve_eq"]:
+#    headers += "msg=\"123\"\n"
+    for func in ["MaxPool", "SilverMedal", "BelongTo", "gcd", "PrintMe", "Triangle", "Typewriter", "sift", "Backward", "ABS", "BestApprox", "SmallerApprox", "BFF" ]:
         header = "try:\n"
         header += "  from " + filename[:-3] + " import " + func + "\n"
         header += "except Exception as e:\n"
@@ -67,7 +75,7 @@ def rewritefile(filename, dstprefix):
     with open(filename, 'r') as f:
         lib = f.readlines()
 
-    newlines = [line  if not reject(line) else "\n" for line in lib]
+    newlines = [line if not reject(line) else "pass # BANNED " + line for line in lib]
     
     filename = "".join(filename.split())
     # if "-" in filename:
@@ -90,11 +98,11 @@ def rewritefile(filename, dstprefix):
 # tweak_name("dafdsaf/sdafdsf.py")
 
 
-raw_submission_prefix = "hw3_submissions" # Places downloaded submissions, a bunch of .py files, here. 
-processed_student_script_prefix = "hw3_students" 
+raw_submission_prefix = "hw4_submissions" # Places downloaded submissions, a bunch of .py files, here. 
+processed_student_script_prefix = "hw4_students" 
 
 
-with open("main_hw3.py", "r")  as f:
+with open("main_hw4.py", "r")  as f:
     main_body = f.read()
 
 import sys

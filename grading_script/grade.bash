@@ -1,13 +1,13 @@
 
 rm grades.log
-rm hw3_students/* 
-cp lib_hw3.py hw3_students
+rm hw4_students/* 
+cp lib_hw4.py hw4_students
 
 python combine.py
 
 #exit 8
 
-for i in hw3_students/*_grade.py
+for i in hw4_students/*_grade.py
 do 
 echo -n "grading ... "
 #echo -n $i 
