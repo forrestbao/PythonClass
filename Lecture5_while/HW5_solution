@@ -1,0 +1,29 @@
+
+
+ def BestApprox(L, t):
+         x = L[0]
+         for i in L:
+             if abs(i-t) <= abs(x-t):
+                 x = i 
+         return x 
+
+
+ def SmallerApprox(L, t):
+         x = L[0]
+         for i in L:
+             if abs(i-t) < abs(x-t):
+                 x = i 
+             elif abs(i-t) == abs(x-t):
+                 if i < x:
+                     x= i 
+         return x 
+
+
+def Typewriter(word):
+          album = []
+          state = ""
+          for letter in word:
+              state = state + letter
+              album.append(state)
+          return album
+
