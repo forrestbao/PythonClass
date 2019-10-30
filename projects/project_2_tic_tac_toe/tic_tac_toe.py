@@ -24,15 +24,21 @@ def user_moves(X,O):
     # if [x,y] is a cell already occupied by an X or an O, ask the user again. 
     
     
-    return [x,y]
+    return X
 
 
 
-def computer_moves(X, O):
+def computer_moves(X, O, counterX, counterY):
     """return the coordinate that the computer wants to put an O on the grid. 
     """
+    
+    randomX, counterX = cyrandom(counterX)
+    randomY, counterY = cyrandom(counterX)
+    
+    # use a while here, if the coordinate (randomX, randomY) is occupied.
+    
     ...
-    return [x,y]
+    return X, counterX, counteY 
 
 def judge(X, O):
     """return 1 is the user won, -1 if the computer won, 0 if tie, and 100 if too early to call.  
@@ -40,10 +46,16 @@ def judge(X, O):
 
 def ko(judgement):
     """Print messages at the end of the game to greet, or to comfort the player. 
+    
+    judgment:
+    1: tie
+    2: computer wins
+    3: human wins
+    
     """
-    if judgement is 1:
+    if judgement==3:
         print ("Good job. you won.")
-    elif judgement is -1:
+    elif judgement == 2:
         print ("Sorry, you were defeated by the computer. ")
 
 def print_board(X, O):
@@ -58,28 +70,30 @@ def print_board(X, O):
     """
     ...
 
+def cyrandom(counter):
+    L = [1,2,3]
+    draw = L[counter]
+    counter += 1 
+    return draw, counter 
+    
 def game():
+    counterX, counterY = 0, 2
     while True:
         print_board(X,O)
     
-        [x,y] = user_moves() # ask the user to make a move 
-        X = add_piece(grid, [x,y])  # update the board after user moves
+        O = user_moves(X, O) # ask the user to make a move 
 
         judgement = judge(X,O)  # judge whether the game ends 
-        if judgement is not 100:  # if the game is over
-            ko(judgement) # print ending message
-            return judgement ## game over, exit the function 
-        
-        [x,y] = computer_moves(X, O) # ask the computer to make a move
-        O = add_piece(grid, [x,y])  # update the board after computer moves
+        if judgement < 4:
+            ko(judgement)
+            return 0
+       
+        X, counterX, counterY = computer_moves(X, O, counterX, counterY) # ask the computer to make a move
         
         judgement = judge(X,O)  # judge whether the game ends 
-        if judgement is not 100:  # if the game is over
-            ko(judgement) # print ending message
-            return judgement ## game over, exit the function 
-
-
-
+        if judgement < 4:
+            ko(judgement)
+            return 0
 
 if __name__ == "__main__":
     game()

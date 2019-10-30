@@ -17,24 +17,24 @@ def print_grid(X,O):
         O will be [[0,1,0],[0,1,0],[0,0,1]]
         
     """
-    for i in range(3): # row index
-        Row = "" 
-        for j in range(3):  # column index
-            if X[i][j] is 1:
-                Row += "X"
-            elif O[i][j] is 1:
-                Row += "O"
+   
+    for row in range(3):
+        Lthisrow = ""
+        for column in range(3):
+            if X[row][column] == 1:
+                Lthisrow += "X"
+            elif O[row][column] == 1:
+                Lthisrow += "O"
             else:
-                Row += "_" 
-        print (Row )
+                Lthisrow += "_"
+        print (Lthisrow)
+                
+    return None  
         
 
 X = [[1,0,0],[0,0,0],[0,1,0]]
 O = [[0,1,0],[0,1,0],[0,0,1]]
 
-"""
-import hw5_hint2
+print_grid(X, O )
 
-[x,y] = hw5_hint2.user_moves()
-print_grid(X,O) 
-"""
+
