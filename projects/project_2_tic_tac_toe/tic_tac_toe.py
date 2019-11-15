@@ -7,6 +7,7 @@ def user_moves(X,O):
     
     # add a while-loop here, as long as (x,y) is occupied by an X or an O, ask again. 
 
+
     return X
 
 def computer_moves(X, O, counterX, counterY):
@@ -90,7 +91,7 @@ def cyrandom(counter):
 
     """
 
-    L = [1,2,3]
+    L = [0,1,2]
     draw = L[counter]
     counter += 1 
 
@@ -99,7 +100,7 @@ def cyrandom(counter):
 
     return draw, counter 
     
-def game():
+def game(X, O):
     """This function is complete. No need to modify. 
     """
 
@@ -126,5 +127,5 @@ if __name__ == "__main__":
 
     X = [[0,0,0],[0,0,0],[0,0,0]]
     O = [[0,0,0],[0,0,0],[0,0,0]]
-    game()
+    game(X, O )
 
