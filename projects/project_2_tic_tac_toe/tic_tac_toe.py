@@ -10,17 +10,18 @@ def user_moves(X,O):
 
     return X
 
-def computer_moves(X, O, counterX, counterY):
+def computer_moves(X, O):
     """
     Let the computer randomly choose a cell on the grid to put an X. The new location must be unoccupied.  
     """
-    
-    randomX, counterX = cyrandom(counterX)
-    randomY, counterY = cyrandom(counterX)
-    
+    import random 
+
+    randomX = random.randrange(3)
+    randomY = random.randrange(3)
+
     # add a while-loop here, as long as the random coordinate (randomX, randomY) is occupied by an X or an O, regenerate.
     
-    return X, counterX, counteY 
+    return X
 
 def judge(X, O):
     """
@@ -115,7 +116,7 @@ def game(X, O):
             ko(judgement)
             return 0
        
-        X, counterX, counterY = computer_moves(X, O, counterX, counterY) # ask the computer to make a move
+        X = computer_moves(X, O) # ask the computer to make a move
         
         judgement = judge(X,O)  # judge whether the game ends 
         if judgement < 4:
