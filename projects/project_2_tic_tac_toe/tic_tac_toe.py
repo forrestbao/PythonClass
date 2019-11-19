@@ -8,7 +8,7 @@ def user_moves(X,O):
     # add a while-loop here, as long as (x,y) is occupied by an X or an O, ask again. 
 
 
-    return X
+    return O
 
 def computer_moves(X, O):
     """
@@ -107,7 +107,7 @@ def game(X, O):
 
     counterX, counterY = 0, 2
     while True:
-        print_board(X,O)
+        print_grid(X,O)
     
         O = user_moves(X, O) # ask the user to make a move 
 
