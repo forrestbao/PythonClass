@@ -12,6 +12,11 @@ Python class taught by Prof. Dr. [Forrest Sheng Bao](https://sites.google.com/si
 # Old slides
 On this old page https://sites.google.com/site/forrestbao/teaching/python
 
+# License
+
+![CC-by-SA 4.0 Int'l](https://i.creativecommons.org/l/by-sa/4.0/88x31.png "CC license logo")
+
+This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
 
 # Disclaimer
 Opinions expressed here does not reflect the opinions of Iowa State University. 
