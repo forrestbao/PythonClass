@@ -1,6 +1,5 @@
 # PythonClass
-Python class COM S 127 at Iowa State University taught by Prof. Dr. Forrest Sheng Bao and pals. 
-
+Python class taught by Prof. Dr. [Forrest Sheng Bao](https://sites.google.com/site/forrestbao/) and pals. 
 
 # Slides and notebooks
 * [Syllabus](https://www.dropbox.com/s/3fvc3v8vs5229wd/Syllabus.pdf?dl=0)
@@ -10,7 +9,7 @@ Python class COM S 127 at Iowa State University taught by Prof. Dr. Forrest Shen
 * 2019 fall day 2: [setup python](Lecture1_Introduction/setup_Hebi.pdf)
 
 
-# Last-year slides
+# Old slides
 On this old page https://sites.google.com/site/forrestbao/teaching/python
 
 
