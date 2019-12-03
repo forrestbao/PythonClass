@@ -1,6 +1,6 @@
 # Lab on advanced topics
 
-## 1. The highest and lowest grade of a class [2pt
+## 1. The highest and lowest grade of a class [2pt]
 
 Suppose you are given a dictionary whose keys are the names of students and the values are their corresponding numerical grades, compute the highest and the lowest grades of the class. Define a function called `grade_range`, which takes the aforementioned dictionary as the sole input and returns two numbers, which are the lowest (first) and highest (second) grades of the class. 
 
@@ -45,3 +45,8 @@ Below is another example for checking 15.
 |11|5| `is_square(11,5)` is the same as `is_square(6,7) ` | 
 |6|7|  `is_square(6,7)` is the same as `is_square(-1,9) ` | 
 |-1 |9|   base case. n false below 0. Return False   | 
+
+Do NOT use any loops, or direct methods to get square root (such as `**0.5` or import the `math` module).
+
+## Bonus: 
+For the recursion problem above, if you can get it done with or under 5 lines, you get one more point. Hint: you don't need one if and one else for the two base cases. They can be merged into one. 
