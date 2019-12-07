@@ -17,25 +17,24 @@ import glob
 # import StringIO, tokenize
 import os, re
 
-def reject(line):
-    badwords = ["import"] #"input(", "print"]
-    for badword in badwords:
-        if badword in line:
-            return True 
-    patterns = [".*print.*\(.*\).*", 
-            ".*\..*sort.*\(.*", 
-            ".*\..*remove.*\(.*", 
-            ".*\..*pop.*\(.*",
-            ".*\..*index.*\(.*", 
-#            ".*:.*:.*-.*1.*",
-#           "if.*in.*",
-
+def substitute(line):
+    patterns = ["import (?!random)",
+                "\S+\.sort\(",
+                "\S+\.remove\(",
+                "\S+\.pop\(",
+                "\S+\.index\(",
+#                "^(?!def)",
+#                "^\S+.*\(.*\)",
+#                "print *\(.*\)"
+#                "^(?!#).*"
             ]
     for pattern in patterns:
         x = re.search(pattern, line)
         if x != None:
-            return True 
-    return False 
+            s, _ = x.span()
+#            print "chaging", line[:-1], "to", line[:s] + "000"
+            return line[:s] + "000\n"
+    return line
 
 def tweak_name(filename):
     filename = "".join(filename.split())
@@ -49,7 +48,7 @@ def gen_header(filename):
     filename = os.path.basename(filename)
     headers = ""
 #    headers += "msg=\"123\"\n"
-    for func in ["MaxPool", "SilverMedal", "BelongTo", "gcd", "PrintMe", "Triangle", "Typewriter", "sift", "Backward", "ABS", "BestApprox", "SmallerApprox", "BFF" ]:
+    for func in "stairway, cycbrt, mypower, multiple, nbyn, alldivisor,  isperfect, triplecut, common_in_range, float2str, uno".split(", "):
         header = "try:\n"
         header += "  from " + filename[:-3] + " import " + func + "\n"
         header += "except Exception as e:\n"
@@ -58,6 +57,8 @@ def gen_header(filename):
         header += "    return None \n"
         # print (header)
         headers += header
+
+
     return headers
 
 def gen_executable(student_library_filename, dstprefix, mainbody):
@@ -71,12 +72,12 @@ def gen_executable(student_library_filename, dstprefix, mainbody):
     return run_code_path
 
 def rewritefile(filename, dstprefix):  
+    # the student module 
     # rewrite student submitted script 
     with open(filename, 'r') as f:
         lib = f.readlines()
 
-    newlines = [line if not reject(line) else "pass # BANNED " + line for line in lib]
-    
+    newlines = map(substitute, lib)
     filename = "".join(filename.split())
     # if "-" in filename:
     #     print filename
@@ -90,6 +91,9 @@ def rewritefile(filename, dstprefix):
     # print filename
 
     with open(filename, 'w') as f:
+
+        headers = "from lib_hw5 import float2list, approxfloat, digit2char, integer2list\n"
+        f.write(headers)
         f.writelines(newlines)
     return filename  
 
@@ -97,19 +101,19 @@ def rewritefile(filename, dstprefix):
 # gen_header("dafdsaf/sdafdsf.py")
 # tweak_name("dafdsaf/sdafdsf.py")
 
+if __name__ == "__main__":
+    raw_submission_prefix = "hw5_submissions" # Places downloaded submissions, a bunch of .py files, here. 
+    processed_student_script_prefix = "hw5_students" 
 
-raw_submission_prefix = "hw4_submissions" # Places downloaded submissions, a bunch of .py files, here. 
-processed_student_script_prefix = "hw4_students" 
 
+    with open("main_hw5.py", "r")  as f:
+        main_body = f.read()
 
-with open("main_hw4.py", "r")  as f:
-    main_body = f.read()
-
-import sys
-counter = 0 
-for code in glob.glob(raw_submission_prefix + "/*.py"):
-    # try:
-        student_library_filename = rewritefile(code, processed_student_script_prefix)
-        gen_executable(student_library_filename, processed_student_script_prefix, main_body)
-    # except:
-    #     print (code, "throw out. manual check ")
+    import sys
+    counter = 0 
+    for code in glob.glob(raw_submission_prefix + "/*.py"):
+        # try:
+            student_library_filename = rewritefile(code, processed_student_script_prefix)
+            gen_executable(student_library_filename, processed_student_script_prefix, main_body)
+        # except:
+        #     print (code, "throw out. manual check ")
