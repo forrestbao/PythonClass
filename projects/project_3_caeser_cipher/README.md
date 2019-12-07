@@ -192,11 +192,17 @@ Out[26]: 0.75
 
 ## Step 5: Put things together 
 
-Now put everything together in the right order and dependency to define an overall function called `crack` that takes one encrypted message as input and return the best decrypted message. 
+Now put everything together in the right order and dependency to define an overall function called `crack` that takes 
 
-Here is the pseudocode:
+a) one encrypted message, and 
+b) the file path of the 10k common English words
+
+as the input and return the best decrypted message. 
+
+Here is the pseudocode (add any intermediate steps if needed):
 
 ```
+load the list of legitmate English words
 best_score = 0 
 best_shift = i 
 for i from 0 to 25:
