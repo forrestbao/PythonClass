@@ -23,7 +23,7 @@ def substitute(line):
                 "\S+\.remove\(",
                 "\S+\.pop\(",
                 "\S+\.index\(",
-#                "^(?!def)",
+                "^(d(?!ef)|[a-c]|[e-h]|[j-z]|i(?!f))\w*",
 #                "^\S+.*\(.*\)",
 #                "print *\(.*\)"
 #                "^(?!#).*"
@@ -48,7 +48,7 @@ def gen_header(filename):
     filename = os.path.basename(filename)
     headers = ""
 #    headers += "msg=\"123\"\n"
-    for func in "stairway, cycbrt, mypower, multiple, nbyn, alldivisor,  isperfect, triplecut, common_in_range, float2str, uno".split(", "):
+    for func in "stairway, cycbrt, mypower, multiple, nbyn, alldivisor,  isperfect, triplecut, common_in_range, float2str, judge, Uno".split(", "):
         header = "try:\n"
         header += "  from " + filename[:-3] + " import " + func + "\n"
         header += "except Exception as e:\n"

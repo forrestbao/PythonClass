@@ -46,6 +46,55 @@ def grade_all_problems(your_functions, my_functions, datas, points, counter=0, v
       print (". Grade is", grade)
     return correct, grade 
 
+def gen_judge_data(K):
+    """generate K pairs of X's and O's
+    """
+    import random
+
+    XOs= []
+
+
+    for i in range(K):
+        X, O = [[0 for _ in range(3)] for _ in range(3)], [[0 for _ in range(3)] for _ in range(3)]
+
+        for i in range(3):
+            for j in range(3):
+                t = random.choice([0,1,2,3,4]) #toss 
+                if t == 0:
+                    X[i][j] = 1
+                elif t == 1:
+                    O[i][j] = 1
+                else:
+                    pass
+
+
+        mt = random.choice([0,1,2]) #mutations
+        obj = random.choice([0,1]) # X wins or O wins 
+
+        if obj == 0:
+            P, Q = X, O 
+        else:
+            P, Q = O, X 
+
+        if mt == 0: # row ones
+            row = random.choice([0,1,2])
+            P[row] = [1]*3
+            Q[row] = [0]*3
+        elif mt == 1: # column ones
+            column = random.choice([0,1,2])
+            for i in range(3):
+                P[i][column] = 1
+                Q[i][column] = 0
+        else: # diagonal ones
+            for i in range(3):
+                P[i][i] = 1
+                Q[i][i] = 0
+        
+        XOs.append((X,O))
+
+    return XOs
+
+
 if __name__ == "__main__":
 
     import random 
@@ -74,10 +123,15 @@ if __name__ == "__main__":
     precisions = [10**(-x) for x in range(10)] 
     cycbrt_data = list(zip( ListofRandomReals, random.choices(precisions, k=K)  ))
     power_data = list(zip(  ListofRandomReals, ListofPositiveIntegers ))
+
+    judge_data = gen_judge_data(100) 
+
     uno_data = [ (x, x+y) for (x,y) in ZipTwoColumnPositiveIntegers  ]
+
     # Pack everything 
-    your_functions = [stairway, cycbrt, mypower, multiple, nbyn, alldivisor, isperfect, triplecut, common_in_range, float2str, uno ]
-    my_functions = [lib_hw5.stairway, lib_hw5.cycbrt, lib_hw5.mypower, lib_hw5.multiple, lib_hw5.nbyn, lib_hw5.alldivisor, lib_hw5.isperfect, lib_hw5.triplecut, lib_hw5.common_in_range, float2str, uno  ]
+    your_functions = [stairway, cycbrt, mypower, multiple, nbyn, alldivisor, isperfect, triplecut, common_in_range, float2str, judge, Uno ]
+    my_functions = [lib_hw5.stairway, lib_hw5.cycbrt, lib_hw5.mypower, lib_hw5.multiple, lib_hw5.nbyn, lib_hw5.alldivisor, lib_hw5.isperfect, lib_hw5.triplecut, lib_hw5.common_in_range, lib_hw5.float2str, lib_hw5.judge, lib_hw5.Uno  ]
+
     datas = [ZipListofPositiveIntegers,  # stairway
             cycbrt_data,  # cycbrt
             power_data,  # mypower
@@ -88,13 +142,21 @@ if __name__ == "__main__":
             list(zip( random.choices(range(20, 100), k=K) ,  random.choices(range(1,5), k=K)  )), # triplecut
             ZipTwoColumnPositiveIntegers, # common_in_range 
             list(zip(ListofRandomReals+[0.1])), # float2str
+            judge_data, # judge of tic-tac-toe  
             uno_data, # uno  
             ]
 
-    points = [3,1,1,1,1, 1,1,1,2,1, 1,2,1,1,  1] # everyone gets free cyrandom 1pt
+    points = [3,1,1,1,1, 
+              1,1,1,2,1, 
+              1,2,1,1,  
+              1,  3] # judge and uno
 
     print (__file__, end=" ")
     correct, grade = grade_all_problems(your_functions, my_functions, datas, points, counter=1)
+
+    grade += 2 # 2 free points for ko and cyrandom
+    grade += 1 # one more free point for cycbrt
+
     # print (correct, grade)
     
     with open("grades.log", 'a+') as f:
