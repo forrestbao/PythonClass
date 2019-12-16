@@ -48,7 +48,7 @@ def gen_header(filename):
     filename = os.path.basename(filename)
     headers = ""
 #    headers += "msg=\"123\"\n"
-    for func in "stairway, cycbrt, mypower, multiple, nbyn, alldivisor,  isperfect, triplecut, common_in_range, float2str, judge, Uno".split(", "):
+    for func in "stairway, cycbrt, mypower, multiple, nbyn, alldivisor,  isperfect, triplecut, common_in_range, float2str, judge, user_moves, computer_moves, Uno".split(", "):
         header = "try:\n"
         header += "  from " + filename[:-3] + " import " + func + "\n"
         header += "except Exception as e:\n"

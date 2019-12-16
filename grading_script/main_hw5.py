@@ -94,6 +94,100 @@ def gen_judge_data(K):
 
     return XOs
 
+##+=======special handling for tic-tac-toe =====
+
+
+def gen_rand_XO():
+    import random
+    X, O = [[0 for _ in range(3)] for _ in range(3)], [[0 for _ in range(3)] for _ in range(3)]
+    for i in range(3):
+        for j in range(3):
+            t = random.choice([0,1,2,3,4]) #toss 
+            if t == 0:
+                X[i][j] = 1
+            elif t == 1:
+                O[i][j] = 1
+            else:
+                pass
+
+    return X, O
+
+def check_user_moves(func1, func2, XOs):
+
+    import itertools
+    # try all 9 positions
+    insert = itertools.chain.from_iterable( [(x,y) for x in range(3) for y in range(3)] )
+    insert = list(map(str, insert))
+
+#   print (insert)
+
+    import sys, io
+    import copy
+    stdin = sys.stdin
+
+    for (X,O) in XOs:
+#        print ("=================")
+#        print (func1, func2)
+        sys.stdin = io.StringIO("\n".join(insert))
+
+        o1 = func1(X, copy.deepcopy(O))
+        if o1 == None:
+            return False
+
+        sys.stdin = io.StringIO("\n".join(insert))
+        o2 = func2(X,O)
+#        o2 = itertools.starmap(func1, input_data)
+
+#        print (o1)
+#        print (o2)
+
+        if o1 != o2:
+             return False
+
+    sys.stdin = stdin
+    return True
+
+
+def check_computer_moves(func, XOs):
+    """Whether the computer move function yields new valid X and O 
+    """
+    import copy
+    for (X,O) in XOs:
+
+         newX = computer_moves(copy.deepcopy(X), O)
+         if newX == None:
+             return False 
+         diff = 0
+         dx, dy = None, None
+         for row in range(3):
+             for column in range(3):
+                     if newX[row][column] not in [0,1]:
+                         return False
+                     if X[row][column] != newX[row][column]:
+                         dx, dy = row, column
+                         diff += 1
+         if diff != 1:
+             return False
+
+         if O[dx][dy] == 1:
+             return False
+
+    return True
+
+
+
+def special_ttt(correct, grade):
+    XOs = [gen_rand_XO()  for _ in range(100)   ]
+
+    if  check_user_moves(user_moves, lib_hw5.user_moves, XOs):
+        grade += 1 
+        correct.append("user_moves")
+    if check_computer_moves(computer_moves, XOs ):
+        grade += 1 
+        correct.append("computer_moves")
+
+    return correct, grade 
+
 
 if __name__ == "__main__":
 
@@ -157,7 +251,11 @@ if __name__ == "__main__":
     grade += 2 # 2 free points for ko and cyrandom
     grade += 1 # one more free point for cycbrt
 
-    # print (correct, grade)
+
+    correct, grade = special_ttt(correct, grade)
+
+
+#    print (correct, grade)
     
     with open("grades.log", 'a+') as f:
       f.write(__file__)
