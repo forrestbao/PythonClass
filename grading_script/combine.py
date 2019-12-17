@@ -48,7 +48,8 @@ def gen_header(filename):
     filename = os.path.basename(filename)
     headers = ""
 #    headers += "msg=\"123\"\n"
-    for func in "stairway, cycbrt, mypower, multiple, nbyn, alldivisor,  isperfect, triplecut, common_in_range, float2str, judge, user_moves, computer_moves, Uno".split(", "):
+#    for func in "stairway, cycbrt, mypower, multiple, nbyn, alldivisor,  isperfect, triplecut, common_in_range, float2str, judge, user_moves, computer_moves, Uno".split(", "):
+    for func in "ascii2string, string2ascii, encrypt1, decrypt1, encrypt_string, decrypt_string, load_english, check_legit, crack".split(", "):
         header = "try:\n"
         header += "  from " + filename[:-3] + " import " + func + "\n"
         header += "except Exception as e:\n"
@@ -92,8 +93,8 @@ def rewritefile(filename, dstprefix):
 
     with open(filename, 'w') as f:
 
-        headers = "from lib_hw5 import float2list, approxfloat, digit2char, integer2list\n"
-        f.write(headers)
+#        headers = "from lib_hw5 import float2list, approxfloat, digit2char, integer2list\n"
+#        f.write(headers)
         f.writelines(newlines)
     return filename  
 
@@ -102,11 +103,11 @@ def rewritefile(filename, dstprefix):
 # tweak_name("dafdsaf/sdafdsf.py")
 
 if __name__ == "__main__":
-    raw_submission_prefix = "hw5_submissions" # Places downloaded submissions, a bunch of .py files, here. 
-    processed_student_script_prefix = "hw5_students" 
+    raw_submission_prefix = "hw6_submissions" # Places downloaded submissions, a bunch of .py files, here. 
+    processed_student_script_prefix = "hw6_students" 
 
 
-    with open("main_hw5.py", "r")  as f:
+    with open("main_caesar.py", "r")  as f:
         main_body = f.read()
 
     import sys
